@@ -1,6 +1,6 @@
 # Zepto Data & AI Platform — Capstone
 
-One repository with three connected modules. Python 3.11+ is recommended. Install dependencies per module from that module's `requirements.txt`. The support assistant downloads `all-MiniLM-L6-v2` on first run; the scraper and Seaborn loader also need network access once. The required LLM path is fully offline: `MOCK_LLM` defaults to `1`.
+One repository with three connected modules. Python 3.11+ is recommended. The per-module `requirements.txt` files are authoritative and install only the dependencies for that module. The root `requirements.txt` is a convenience superset if you want to install all modules at once. The support assistant downloads `all-MiniLM-L6-v2` on first run; the scraper and Seaborn loader also need network access once. The required LLM path is fully offline: `MOCK_LLM` defaults to `1`.
 
 ## Run
 
@@ -29,10 +29,10 @@ curl.exe -X POST http://localhost:7860/ask -H "Content-Type: application/json" -
 curl.exe -X POST http://localhost:7860/ask -H "Content-Type: application/json" -d "{\"query\":\"Tell me a joke\"}"
 ```
 
-Mock mode policy example (sources/confidence are deterministic from retrieval; exact confidence can vary slightly by embedding library version):
+Mock mode policy example (retrieved sources follow the vector search; confidence is fixed at 1.0 for deterministic mock output):
 
 ```json
-{"answer":"Based on the retrieved context: Delivery Policy: Zepto delivers grocery and household essentials to serviceable pin codes within 10 to 30 minutes of order confirmation, depending on the customer's delivery zone and current order vol","sources":["doc_01","doc_05","doc_02"],"confidence":0.5226026177406311}
+{"answer":"Based on the retrieved context: Delivery Policy: Zepto delivers grocery and household essentials to serviceable pin codes within 10 to 30 minutes of order confirmation, depending on the customer's delivery zone and current order vol","sources":["doc_01","doc_05","doc_02"],"confidence":1.0}
 ```
 
 Mock mode general example:
@@ -43,7 +43,7 @@ Mock mode general example:
 
 ## Docker
 
-From the repository root, build with `docker build -f support_assistant/Dockerfile -t zepto-assistant .` and run with `docker run --rm -p 7860:7860 zepto-assistant`. The model is downloaded on first startup. The container serves `POST /ask` on port 7860.
+Build from the repository root with `docker build -f support_assistant/Dockerfile -t zepto-assistant support_assistant`, or from inside `support_assistant/` with `docker build -t zepto-assistant .`. Run with `docker run --rm -p 7860:7860 zepto-assistant`. The model is downloaded on first startup. The container serves `POST /ask` on port 7860.
 
 ## Validation notes
 

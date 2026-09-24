@@ -76,8 +76,7 @@ def retrieve_and_answer(state:State)->State:
     docs=result["documents"][0]; ids=[m["document_id"] for m in result["metadatas"][0]]
     if mock_enabled():
         answer="Based on the retrieved context: "+docs[0][:200]
-        conf=max(0.0,min(1.0,1-float(result["distances"][0][0])))
-        return {"answer":answer,"sources":ids,"confidence":conf,"context":docs,"ids":ids}
+        return {"answer":answer,"sources":ids,"confidence":1.0,"context":docs,"ids":ids}
     prompt=PROMPT_TEMPLATE.format(context="\n".join(f"[{i}] {d}" for i,d in zip(ids,docs)),query=q)
     try: out=llm_json(prompt)
     except Exception as exc: out={"answer":f"ERROR: {exc}","sources":ids,"confidence":0.0}
