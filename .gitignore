@@ -179,3 +179,16 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+# Project-specific generated files
+__pycache__/
+.venv/
+*.pyc
+.env
+chroma_db/
+model_cache/
+support_assistant/model_cache/
+analytics/seaborn_cache/
+*.sqlite-wal
+*.sqlite-shm
+work/
