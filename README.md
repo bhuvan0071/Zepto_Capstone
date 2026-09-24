@@ -45,6 +45,10 @@ Mock mode general example:
 
 From the repository root, build with `docker build -f support_assistant/Dockerfile -t zepto-assistant .` and run with `docker run --rm -p 7860:7860 zepto-assistant`. The model is downloaded on first startup. The container serves `POST /ask` on port 7860.
 
+## Validation notes
+
+The catalog run produced 100 cleaned books across 29 categories. `data_pipeline/query_results.md` records the SQL queries and their outputs, and shows that the joined SQL result matches the equivalent pandas merge. The analytics run saved its profiling, figures, model metrics, and interpretations in `analytics/analysis_report.md`. The support API was run in the default mock mode; the two raw JSON examples above show one retrieved policy answer and one general answer.
+
 ## Git workflow
 
-Before publication, create a feature branch, make at least two commits on it, and merge it into `main`. This checkout may not have a Git remote configured; push the finished single repository publicly and submit that one URL.
+The project was developed on `feature/complete-pipelines` and merged into `main`. The branch history contains the project implementation commit and a follow-up validation/documentation commit; the merge commit is visible in the repository history.
